@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="myCss.css" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="">
+<script >
+    window.onload = function(){
+        add();
+    }
+    function add(){
+        var UA = navigator.userAgent,
+                isSome={
+                    isMobile:UA.match(/Mobile/)
+                };
+
+        if (isSome.isMobile) {
+            console.log("mobile")
+            var needChangeCss = document.getElementsByTagName("link")[0];
+            console.log(needChangeCss);
+            needChangeCss.setAttribute("href", "ff.css");
+            console.log(needChangeCss);
+
+            var newJs = document.createElement("script");
+            newJs.setAttribute("src", "mobile.js");
+            console.log(newJs);
+            console.log(document.html)
+            document.getElementsByTagName("body")[0].appendChild(newJs);
+
+            var newTouchJs = document.createElement("script");
+            newTouchJs.setAttribute("src","touch.js");
+            document.getElementsByTagName("body")[0].appendChild(newTouchJs);
+
+
+    }
+}
+</script>
+</head>
+<body >
+<div class="good">
+    <header>
+        <p class="iNote"> iNote<span>  ... 个人任务管理中心</span>  </p>
+    </header>
+    <!-- in a time treCode-->
+    <div id="content">
+
+        <div class="main-warp" id="contentList">
+            <div id="btn">
+                <span class="editBtn">编辑</span>
+            </div>
+
+            <div id="okBtn">
+                <span class="okBtn">完成</span>
+            </div>
+
+            <div id="editTask" >
+
+                <form class="form">
+
+                    <div class="name" >
+                        <span>修改标题</span>
+                        <input id="editName">
+                    </div>
+
+                    <div class="date">
+                        <span>修改日期</span>
+                        <textarea id="editDate"></textarea>
+                    </div>
+
+                    <div class="task">
+                        <span>修改内容描述</span>
+                        <textarea id="editNnn"></textarea>
+                    </div>
+
+                </form>
+
+                <button id="sureEdit">确认xiugai</button>
+            </div>
+            <div id="createTask">
+                <form class="form">
+
+                    <div class="name">
+                        <span>填写标题</span>
+                        <input id="name">
+                    </div>
+
+                    <div class="date">
+                        <span>填写日期</span>
+                        <textarea id="date"></textarea>
+                    </div>
+
+                    <div class="task">
+                        <span>填写内容描述</span>
+                        <textarea id="nnn"></textarea>
+                    </div>
+
+                </form>
+
+                <button id="sureToAddContent">确认添加</button>
+            </div>
+
+            <div id="rightDefaultTask" class="showtask" title="this is test which is not defaault Choosed"  name="not">
+
+                <div class="taskName" title="this is test which is not defaault Choosed">
+                    <span>任务名称</span>
+                    this is test which is not defaault Choosed
+                </div>
+
+                <div class="taskTime" title=" this is test which is not defaault Choosed">
+                    <span>任务时间</span>
+                    this is test which is not defaault Choosed
+                </div>
+
+                <div class="taskContent" title=" this is test which is not defaault Choosed">
+                    <span>任务内容</span>
+                    this is test which is not defaault Choosed
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="LeftClassList">
+
+        <p id="ClassListName">所有任务</p>
+
+        <div class="classListAll"  id="classListFather">
+
+            <div class="ClassTask" title="1" id="defaultTask">
+                <p class="className">默认Task</p>
+                <ul class="taskList">
+                    <li id="defaulttask" class="HeighLight"> 默认TaskList <span class="deleteBtnLeft"> 删除 </span> </li>
+                    <li class="LiModel" title=""> <span class="deleteBtnLeft"> 删除 </span> </li>
+                </ul>
+            </div>
+
+            <div class="ClassTask" title="0" id="defaultTaskModel">
+                <p class="className"></p>
+
+                <ul class="taskList">
+                    <li class="LiModel" title="" id=""><span class="deleteBtnLeft">删除</span></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="Add" id="addClassBtn">
+            <div class="BtnPlaceholder"></div>
+            <p>添加分类  <img src="./images/add.png" class="ImgAdd"></p>
+        </div>
+    </div>
+
+    <div id="CenterTaskList">
+
+        <div id="screened">
+            <div id="chooseLeft" class="clicked" name="all" ><p name="all">全部</p></div>
+            <div id="chooseCenter" class="" name="not"><p name="not">未完成</p ></div>
+            <div id="chooseRight"  class="" name="complete"><p  name="complete">完成</p ></div>
+        </div>
+
+        <div id="taskListFather" class="showSomethingAbout" >
+
+            <div class="showEd" title="defaulttask" >
+                <span>this s defaultTaskList</span>
+                <ul class="fxxkFather">
+                    <li class="choosed" title="this is test which is defaultChoosed"   name="not">this is test which is defaultChoosed</li>
+                </ul>
+            </div>
+
+            <div class="notShowEd" id="taskListModel" title="">
+                <span></span>
+                <ul class="fxxkFather"  >
+                </ul>
+            </div>
+        </div>
+
+        <div id="addTaskBtn" class="Add">
+            <div class="BtnPlaceholder"></div>
+            <p>添加任务  <img src="./images/add.png" class="ImgAdd"></p>
+        </div>
+
+    </div>
+
+    <div id="saveBtn">
+        <p> click to save</p>
+    </div>
+</div>
+
+<script  type="text/javascript" src="eventListenterAbout.js"></script>
+
+</body>
+</html>

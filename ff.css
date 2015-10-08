@@ -1,0 +1,213 @@
+*{
+    margin: 0;
+}
+
+ul {
+    list-style:none;
+}
+
+p,span{
+    font-size:0.5rem;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+}
+
+html{
+    height: 100%;
+    overflow: hidden;
+
+}
+
+.good {
+    position: relative;
+    height: 100%;
+
+}
+
+header{
+    position: absolute;
+    top: 0;
+    background-color: cornflowerblue;
+    height:2.5rem;
+    width: 100%;
+    border-bottom:solid darkblue 4px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+header p{
+    font-size: 1.5rem;
+    color: white;
+}
+
+header p span{
+    font-size: 0.8rem;
+    color: #d3d3f4;
+}
+
+#content{
+    position: absolute;
+    top: 2.5rem;
+    background-color: #e0e1f4;
+    height: 100%;
+    z-index: 1;
+    width: 100%;
+
+}
+
+#CenterTaskList{
+    position: absolute;
+    top: 2.5rem;
+    background-color: whitesmoke;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+
+}
+
+#LeftClassList{
+    position: absolute;
+    top: 2.5rem;
+    background-color: #35b7ff;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    border-bottom:solid violet 1px;
+
+
+}
+
+#ClassListName{
+    height: 1.5rem;
+    font-size: 0.9rem;
+    background-color: white;
+}
+.ClassTask[title="0"]{
+display: none;
+}
+.ClassTask[title="1"]{
+display: block;
+}
+
+.classListAll li,.classListAll p{
+    height: 2rem;
+}
+.classListAll li{
+    font-size: 0.7rem;
+    color:whitesmoke;
+    background-color: #006666;
+}
+.classListAll p{
+    font-size: 0.8rem;
+}
+.taskList li span{
+    display: none;
+}
+.LiModel{
+    display: none;
+}
+#addClassBtn{
+    position: absolute;
+    bottom: 3rem;
+    height: 1.5rem;
+}
+
+
+#screened{
+    margin: 0.5rem 0 ;
+}
+
+#chooseLeft{
+    float: left;
+    margin-left: 0.5rem;
+    border:solid #6495ed 0.08rem;
+    border-bottom-left-radius: 0.32rem;
+    border-top-left-radius:0.32rem;
+    width: 5rem;
+}
+
+#chooseCenter{
+    float: left;
+    border-bottom:solid #6495ed 0.08rem;
+    border-top:solid #6495ed 0.08rem;
+    width: 5rem;
+    left: 5rem;
+}
+#chooseRight{
+    float: left;
+    border:solid #6495ed 0.08rem;
+    border-bottom-right-radius: 0.32rem;
+    border-top-right-radius:0.32rem;
+    width: 5rem;
+    left: 11rem;
+}
+#screened div{
+    height: 1.5rem;
+}
+#screened div p{
+    font-size: 0.8rem;
+}
+.got{
+    background-color: #6495ed;
+    color: white;
+}
+
+.choosed{
+    background-color: #6495ed;
+    color: white;
+}
+
+#taskListFather .notShowEd{
+    display: none;
+}
+#taskListFather .showEd span{
+    font-size: 1rem;
+
+}
+#addTaskBtn{
+    position: absolute;
+    bottom: 3rem;
+    height: 1.5rem;
+}
+
+#createTask{
+    display: none;
+}
+#editTask{
+    display: none;
+}
+.taskName{
+    height: 3rem;
+    border-bottom:solid gray 0.08rem
+}
+.taskTime{
+    height: 3rem;
+    border-bottom:solid gray 0.08rem
+}
+
+#okBtn{
+    position: absolute;
+}
+
+.prepareShow{
+    display: block;
+    -webkit-transform: translate3d(100%,0,0);
+    background-color: #0040D0;
+    height: 500px;
+}
+
+.canvasHidden{
+    -webkit-transition: -webkit-transform 400ms;
+    -webkit-transform: translate3d(-100%,0,0);
+}
+
+.needShow{
+    -webkit-transition: -webkit-transform 400ms;
+    -webkit-transform: translate3d(0,0,0);
+}

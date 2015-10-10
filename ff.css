@@ -65,7 +65,7 @@ header p span{
 
     z-index: 1;
     width: 100%;
-    display: none;
+   display: none;
 
 }
 
@@ -74,6 +74,9 @@ header p span{
     top: 2.5rem;
     width: 100%;
     z-index: 2;
+    display: none;
+
+
 
 }
 
@@ -86,7 +89,7 @@ header p span{
     z-index: 3;
     border-bottom:solid violet 1px;
 
-    display:none;
+
 
 }
 
@@ -150,6 +153,7 @@ display: block;
     margin-left: -25%;
     margin-bottom: 0.5rem;
     background-color: darkgray;
+    display:none;
 }
 #addClassBtn p{
     font-size: 0.8rem;
@@ -251,7 +255,12 @@ display: block;
     display: none;
 
 }
-
+.showEd{
+    display: block;
+}
+.notShowEd{
+    display: none;
+}
 
 
 
@@ -270,15 +279,17 @@ display: block;
     margin: 0.08rem 0;
 }
 #addTaskBtn{
-    position: fixed;
+    float: left;
+    position: absolute;
     bottom: 0;
-    height: 1.5em;
+    height: 1.5rem;
     left: 50%;
     border: solid orange 0.08rem;
     width: 50%;
     margin-left: -25%;
     margin-bottom: 0.5rem;
     background-color: darkgray;
+    display:none;
 }
 #addTaskBtn p{
     font-size: 0.8rem;
@@ -304,19 +315,83 @@ display: block;
     position: absolute;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#neewAdd{
+    position:fixed;
+    bottom: 0;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .prepareShow{
     display: block;
     -webkit-transform: translate3d(100%,0,0);
     background-color: #0040D0;
     height: 500px;
 }
-
 .canvasHidden{
     -webkit-transition: -webkit-transform 400ms;
     -webkit-transform: translate3d(-100%,0,0);
 }
-
 .needShow{
+    -webkit-transition: -webkit-transform 800ms;
+    -webkit-transform: translate3d(0,0,0);
+}
+
+.backToHidden{
+    -webkit-transition: -webkit-transform 400ms;
+    -webkit-transform: translate3d(-100%,0,0);
+}
+.backToShow{
     -webkit-transition: -webkit-transform 400ms;
     -webkit-transform: translate3d(0,0,0);
+}
+
+
+#neewAdd p{
+    font-size:2rem;
+}
+
+.newInput{
+    height: 100%;
+    background-color: green ;
+    opacity:0.5;
+    position: absolute;
+    top: 2.5rem;
+    width: 100%;
+    z-index: 10;
+
+
 }

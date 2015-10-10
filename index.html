@@ -28,12 +28,20 @@
             console.log(document.html)
             document.getElementsByTagName("body")[0].appendChild(newJs);
 
-            var newTouchJs = document.createElement("script");
-            newTouchJs.setAttribute("src","touch.js");
-            document.getElementsByTagName("body")[0].appendChild(newTouchJs);
+
+
 
 
     }
+        else {
+            var newJs = document.createElement("script");
+            newJs.setAttribute("src", "eventListenerAbout.js");
+            console.log(newJs);
+            console.log(document.html)
+            document.getElementsByTagName("body")[0].appendChild(newJs);
+
+
+        }
 }
 </script>
 </head>
@@ -187,7 +195,7 @@
     </div>
 </div>
 
-<script  type="text/javascript" src="eventListenterAbout.js"></script>
+
 
 </body>
 </html>

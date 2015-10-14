@@ -186,11 +186,11 @@ MakeContent.prototype.deletefunc = function(){
     // find  centerLiDiv
     var needDeleteCenterLiDivList = Center_taskList.getElementsByTagName("div"),
         needDeleteCenterLiDiv;
-     for (var i= 0,len=needDeleteCenterLiDivList.length;i<len;i++){
-         if (needDeleteCenterLiDivList[i].getAttribute("title") == this.LeftClassLi_id){
-             needDeleteCenterLiDiv = needDeleteCenterLiDivList[i];
-         }
-     }
+    for (var i= 0,len=needDeleteCenterLiDivList.length;i<len;i++){
+        if (needDeleteCenterLiDivList[i].getAttribute("title") == this.LeftClassLi_id){
+            needDeleteCenterLiDiv = needDeleteCenterLiDivList[i];
+        }
+    }
 
 
     var  needDeleteCenterLiList =  needDeleteCenterLiDiv.getElementsByTagName("li"),
@@ -219,34 +219,8 @@ MakeContent.prototype.deletefunc = function(){
 
 }
 
-//  待会儿调用给 事件 添加  绑了  点击 确认添加之后的 发生
-function toCreateTask ( ) {
-    //  得到要创建的值 从填写的那页获取
-    var nameValue = document.getElementById("name").value;
-    var dateValue = document.getElementById("date").value;
-    var contentValue = document.getElementById("nnn").value;
-    //  获取 相关的leftLi  和 center Li  的数据
-    var LeftClassLi_id  ,
-        LeftClassLiDiv_id ;
-    var LeftClassDivLIst = Left_classList.getElementsByClassName("ClassTask");
-    for ( var t= 0,len =  LeftClassDivLIst .length;t<len;t++ ){  //  对于当前 创建的content  ，其对应的left可以肯定的是 div的title=1
-        if ( LeftClassDivLIst[t].getAttribute("title") == "1" ){
-            LeftClassLiDiv_id =  LeftClassDivLIst[t].getAttribute("id")
-        }
-    }
-// console.log(  LeftClassLiDiv_id );
-    var needShowContent =  Center_taskList.getElementsByClassName("showEd")[0];   // 对于 当前 ，反正，center的 都是 showd，只要找到就敲定了
-    LeftClassLi_id = needShowContent.getAttribute("title");  //  this  is in center  ,the div;'s title == the li's id(in left)
-    // 调用 构造函数 创
-    var  newObject  =  new  MakeContent(nameValue ,dateValue,contentValue,LeftClassLi_id,LeftClassLiDiv_id,"not");
-    newObject.createContent();  //  调用 方法 创建 一个content
-    newObject.addToLocalStorage();  // 调用方法  把相关的数据 可以放进localStorage去了
-    //console.log( newObject.addToLocalStorage)
-    contentList[nameValue] = newObject;  //  把这个 object藏好 ，后面肯定要调用 然后 ，咕噜^-^!
-    //  因为在 点击 “添加任务" 的时候  把 content给隐藏了，同时显示的的
-    Right_FaultContent.display = "block";
-    console.log(contentList)
-}
+
+
 //  用来创建 左侧列表中 的 函数  先判断 谁被点击，再在被点击的子元素中 创建
 function createClass() {
     // 调用 对话框
@@ -301,6 +275,7 @@ function createClass() {
         //newTaskListInCenter.getElementsByTagName("span")[0].appendChild(NameText );
     }
 }
+/*
 // 用来 干嘛的 函数 ，我看看 就是 选中 left的，然后决定了，center显示什么
 function decideWhichHeighLight() {
     var e = window.event || arguments[0];        // actually  i really forget what will code behind \\
@@ -348,7 +323,7 @@ function decideWhichHeighLight() {
        // console.log("cnmlgb, error in changeHeight")
     }
 }
-
+*/
 function toShowCreateContent(){
 
     var needHiddenContent =   Right_contentList.getElementsByClassName("showtask")[0];
@@ -704,10 +679,7 @@ function changeTask () {
  */
 // 三个筛选按钮
 
-var allBtn = document.getElementById("chooseLeft"),
-       notBtn = document.getElementById("chooseCenter"),
-       completeBtn = document.getElementById("chooseRight");
-
+/*
 function changeCompleteTask() {
 
     console.log("complete");
@@ -780,6 +752,7 @@ function changeNotTask() {
         eTarget.setAttribute("class", "clicked")
     }
 }
+*/
 
 addLocalStorageDataToDom();
 function addLocalStorageDataToDom(){
@@ -962,9 +935,9 @@ function addLocalStorageDataToDom(){
 */
 
 
-addEvent( Left_classAdd,"click",createClass);
-addEvent(Left_classList,"click",decideWhichHeighLight);
-addEvent(Center_taskAdd ,"click",toShowCreateContent);
+//addEvent( Left_classAdd,"click",createClass);
+//addEvent(Left_classList,"click",decideWhichHeighLight);
+//addEvent(Center_taskAdd ,"click",toShowCreateContent);
 addEvent(Center_taskList,"click",decideWhichChoosed);
 addEvent( Right_sureToCreateContent ,"click",toCreateTask);
 addEvent(Right_editBtn,"click",editContent);
@@ -972,6 +945,8 @@ addEvent( Right_content,"click",sureEdit);
 addEvent(Right_okBtn,"click",completeTask);
 addEvent(Left_classList,"click",deleteLeftOrCenter);
 addEvent(Center_taskList,"click",deleteLeftOrCenter);
+
+
     addEvent(  allBtn  ,"click",changeAllTask  );
     addEvent(notBtn ,"click",changeNotTask);
     addEvent( completeBtn,"click",changeCompleteTask);

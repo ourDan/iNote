@@ -8,13 +8,15 @@
 <script >
     window.onload = function(){
         add();
-    }
+    };
     function add(){
+        <!-- 对于pad的适配做的，基本上属于报废-->
         var UA = navigator.userAgent,
                 isSome={
                     isMobile:UA.match(/Mobile/)
                 };
 
+        <!-- 这里 应该没有这么简单 ，恩恩 ，-->
         if (isSome.isMobile) {
             console.log("mobile")
             var needChangeCss = document.getElementsByTagName("link")[0];
@@ -29,18 +31,13 @@
             document.getElementsByTagName("body")[0].appendChild(newJs);
 
 
-
-
-
     }
         else {
             var newJs = document.createElement("script");
-            newJs.setAttribute("src", "eventListenerAbout.js");
+            newJs.setAttribute("src", "pcUse.js");
             console.log(newJs);
             console.log(document.html)
             document.getElementsByTagName("body")[0].appendChild(newJs);
-
-
         }
 }
 </script>
@@ -54,36 +51,24 @@
     <div id="content">
 
         <div class="main-warp" id="contentList">
-            <div id="btn">
-                <span class="editBtn">编辑</span>
-            </div>
 
-            <div id="okBtn">
-                <span class="okBtn">完成</span>
-            </div>
+            <div id="rightDefaultTask" class="showtask" title="this is test which is not defaault Choosed"  name="not">
 
-            <div id="editTask" >
+                <div class="taskName" title="this is test which is not defaault Choosed">
+                    <span>任务名称</span>
+                    this is test which is not defaault Choosed
+                </div>
 
-                <form class="form">
+                <div class="taskTime" title=" this is test which is not defaault Choosed">
+                    <span>任务时间</span>
+                    this is test which is not defaault Choosed
+                </div>
 
-                    <div class="name" >
-                        <span>修改标题</span>
-                        <input id="editName">
-                    </div>
+                <div class="taskContent" title=" this is test which is not defaault Choosed">
+                    <span>任务内容</span>
+                    this is test which is not defaault Choosed
+                </div>
 
-                    <div class="date">
-                        <span>修改日期</span>
-                        <textarea id="editDate"></textarea>
-                    </div>
-
-                    <div class="task">
-                        <span>修改内容描述</span>
-                        <textarea id="editNnn"></textarea>
-                    </div>
-
-                </form>
-
-                <button id="sureEdit">确认xiugai</button>
             </div>
             <div id="createTask">
                 <form class="form">
@@ -107,28 +92,40 @@
 
                 <button id="sureToAddContent">确认添加</button>
             </div>
+            <div id="editTask" >
 
-            <div id="rightDefaultTask" class="showtask" title="this is test which is not defaault Choosed"  name="not">
+                <form class="form">
 
-                <div class="taskName" title="this is test which is not defaault Choosed">
-                    <span>任务名称</span>
-                    this is test which is not defaault Choosed
-                </div>
+                    <div class="name" >
+                        <span>修改标题</span>
+                        <input id="editName">
+                    </div>
 
-                <div class="taskTime" title=" this is test which is not defaault Choosed">
-                    <span>任务时间</span>
-                    this is test which is not defaault Choosed
-                </div>
+                    <div class="date">
+                        <span>修改日期</span>
+                        <textarea id="editDate"></textarea>
+                    </div>
 
-                <div class="taskContent" title=" this is test which is not defaault Choosed">
-                    <span>任务内容</span>
-                    this is test which is not defaault Choosed
-                </div>
+                    <div class="task">
+                        <span>修改内容描述</span>
+                        <textarea id="editNnn"></textarea>
+                    </div>
 
+                </form>
+
+                <button id="sureEdit">确认xiugai</button>
             </div>
+
+            <div id="btn">
+                <span class="editBtn">编辑</span>
+            </div>
+            <div id="okBtn">
+                <span class="okBtn">完成</span>
+            </div>
+
+
         </div>
     </div>
-
     <div id="LeftClassList">
 
         <p id="ClassListName">所有任务</p>
@@ -158,9 +155,7 @@
             <p>添加分类  <img src="./images/add.png" class="ImgAdd"></p>
         </div>
     </div>
-
     <div id="CenterTaskList">
-
         <div id="screened">
             <div id="chooseLeft" class="clicked" name="all" ><p name="all">全部</p></div>
             <div id="chooseCenter" class="" name="not"><p name="not">未完成</p ></div>
@@ -168,7 +163,6 @@
         </div>
 
         <div id="taskListFather" class="showSomethingAbout" >
-
             <div class="showEd" title="defaulttask" >
                 <span>this s defaultTaskList</span>
                 <ul class="fxxkFather">
@@ -195,7 +189,6 @@
     </div>
 </div>
 
-
-
+<script src="baseFunc.js"></script>
 </body>
 </html>

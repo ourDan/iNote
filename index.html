@@ -5,51 +5,67 @@
     <title></title>
     <link href="myCss.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="">
-<script >
-    window.onload = function(){
-        add();
-    };
-    function add(){
-        <!-- 对于pad的适配做的，基本上属于报废-->
-        var UA = navigator.userAgent,
-                isSome={
-                    isMobile:UA.match(/Mobile/)
-                };
+<script ><!-- 这次采用 这次是用我自己的mobile.js来做适配 -->
+ (function(){
+     // 先来搞定 我们的web在什么 平台上 跑着
+     var UA = navigator.userAgent;
+     
+     var isiPad = UA.match(/(ipad)/i);  
+     var isiPhone = UA.match(/(iphone\sos)\s(\d\_\d+)/i); // ["iPhone OS 8_0", "iPhone OS", "8_0"]
+     var isAndroid = UA.match(/(android)\s(\d+\.\d)/i);  //如果是的话 ["Andriod"，"Andriod","4.2/*就是版本号啦*/"]
+     // android = ua.match(/(Android);?[\s\/]+([\d.]+)?/)
+     var iswindowPhone = UA.match(/(windows\s\phone)\s(\d\.\d)/i); //["Windows Phone 8.0", "Windows Phone", "8.0"]
+     var isMobile = UA.match(/mobile/i)
 
-        <!-- 这里 应该没有这么简单 ，恩恩 ，-->
-        if (isSome.isMobile) {
-            console.log("mobile")
-            var needChangeCss = document.getElementsByTagName("link")[0];
-            console.log(needChangeCss);
-            needChangeCss.setAttribute("href", "ff.css");
-            console.log(needChangeCss);
+     // isMobile  ipad上面也是isMobile，所以说，这个就实在是糟糕 isMobile || !isiPad  == (isMobile.length != 0 && isiPad == null) 
+     // 这里先挖个坑 对于 不同的正则的写法 ，感觉在正则上面的技巧手法太弱爆
+     if (isMobile.length != 0 && isiPad == null){ // 那就进入了适配  首先得匹配 mobile 其次 还不能 匹配出ipad
+         reFreshFunc();
+         // 飞分为两种适配方法 
+         // 直接拉伸方法 ，假设采用
+     }
+     function reFreshFunc(){  // 利用rem来刷新的
+         var dpr = window.devicePixelRatio;
+         //console.log(dpr)
+        // 这段是 确定了 viewport 的 meta标签 
+         var metaList = document.getElementsByTagName("meta"),
+             meta;
+         console.log(metaList);    
+         for(var i=0,len=metaList.length;i<len;i++){
+             if (metaList[i].getAttribute("name").toLowerCase() == "viewport"){
+                 meta =metaList[i]; 
+             }
+             else{
+                 meta = document.createElement("meta");
+                 meta.setAttribute("name","viewport");
+             }
+         }
+         // 
+         var contentValue = "initial-scale="+1/dpr+",maximum-scale="+1/dpr+",user-scalable=no"
+         meta.setAttribute("content",contentValue);
+         // reset font-size;
+         var baseWidth = window.screen.width;
+         var newRem = ((baseWidth*dpr)/ 320)*16;
+         document.getElementsByTagName("html")[0].style.fontSize = newRem +"px";
 
-            var newJs = document.createElement("script");
-            newJs.setAttribute("src", "mobile.js");
-            console.log(newJs);
-            console.log(document.html)
-            document.getElementsByTagName("body")[0].appendChild(newJs);
+         // 以上 能跑 绝大多数的 主流 平台 如iphone，三星，HTC  
+         // 对于 那些 比较 诡异 的 ，以及 某些 特殊情况的处理还不够 
 
-
-    }
-        else {
-            var newJs = document.createElement("script");
-            newJs.setAttribute("src", "pcUse.js");
-            console.log(newJs);
-            console.log(document.html)
-            document.getElementsByTagName("body")[0].appendChild(newJs);
-        }
-}
+     }  
+})()
 </script>
+
 </head>
+
 <body >
+
 <div class="good">
     <header>
         <p class="iNote"> iNote<span>  ... 个人任务管理中心</span>  </p>
     </header>
+    <!--  <?php echo htmlentities($var, ENT_QUOTES, 'utf-8') ?>      这句话究竟是他妈的什么意思？待会儿看看会不会出出错-->
     <!-- in a time treCode-->
     <div id="content">
-
         <div class="main-warp" id="contentList">
 
             <div id="rightDefaultTask" class="showtask" title="this is test which is not defaault Choosed"  name="not">
@@ -111,6 +127,7 @@
                         <textarea id="editNnn"></textarea>
                     </div>
 
+
                 </form>
 
                 <button id="sureEdit">确认xiugai</button>
@@ -122,10 +139,9 @@
             <div id="okBtn">
                 <span class="okBtn">完成</span>
             </div>
-
-
         </div>
     </div>
+
     <div id="LeftClassList">
 
         <p id="ClassListName">所有任务</p>
@@ -152,9 +168,10 @@
 
         <div class="Add" id="addClassBtn">
             <div class="BtnPlaceholder"></div>
-            <p>添加分类  <span class="ImgAdd"></span></p>
+            <p>添加分类  <img src="./images/add.png" class="ImgAdd"></p>
         </div>
     </div>
+
     <div id="CenterTaskList">
         <div id="screened">
             <div id="chooseLeft" class="clicked" name="all" ><p name="all">全部</p></div>
@@ -163,6 +180,7 @@
         </div>
 
         <div id="taskListFather" class="showSomethingAbout" >
+
             <div class="showEd" title="defaulttask" >
                 <span>this s defaultTaskList</span>
                 <ul class="fxxkFather">
@@ -179,7 +197,7 @@
 
         <div id="addTaskBtn" class="Add">
             <div class="BtnPlaceholder"></div>
-            <p>添加任务   <span class="ImgAdd"></span></p>
+            <p>添加任务  <img src="./images/add.png" class="ImgAdd"></p>
         </div>
 
     </div>
@@ -188,7 +206,12 @@
         <p> click to save</p>
     </div>
 </div>
+<script type="text/javascript" src="scripts/util.js"></script>
+ <script data-main="scripts/main.js" src="scripts/require.js"></script>
 
-<script src="baseFunc.js"></script>
+<script>
+   
+</script>
+
 </body>
 </html>

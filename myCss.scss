@@ -1,0 +1,158 @@
+@mixin flexIEBox{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+   
+}
+@mixin iEBox{ // i forget it for a long periord //
+    box-sizing:border-box;
+}
+@mixin boxCneter{
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+}
+
+$mainColor:#6495ed;
+
+header{
+    height: 50px;
+    width: 100%;
+    background-color: cornflowerblue;
+    min-width: 800px;
+    p{
+    margin : 0 40px;
+    font-size: 22px;
+    color: white;
+    font-family:Arial,Verdana,Sans-serif;
+    span{
+        font-size: 16px;
+        color: rgb(248,249,254);
+        }
+    }
+}
+
+#saveBtn{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(222,222,222,0.3);
+    width: 120px;
+    @include boxCneter;
+
+    &:hover{
+    background-color:grey;
+    };
+    p{
+    font-size: 14px;
+    color: white;
+    }
+}
+
+#classListFather{
+    margin: 0;
+    [title = "1"] {
+        p{
+            background-color: lightblue;
+        };
+        ul{
+            display: block;
+        }
+    };
+    [title = "0"]{
+        ul{
+            display: none;
+        }
+        p{
+            background-color: darkgray;
+        }
+    };
+    ul{
+        background-color: white;
+    }
+}
+
+#classListFather{
+    p{
+        font-size: 14px;
+        height: 26px;
+        line-height: 26px;
+        padding: 0 15px;
+    }
+    li {
+        font-size: 14px;
+        color:#444;
+    }
+
+} 
+
+.deleteBtnLeft{
+    color:white ;
+    margin-left: 10px;
+    &:hover{
+        color: red;
+    }
+}
+
+.taskList{
+    background-color: white;
+    position: relative;
+    li{
+    height: 24px;
+    line-height: 24px;
+    }
+}
+ 
+.HeighLight{
+    background-color:  cornflowerblue;
+    color: white;
+    position: relative;
+    span {
+        position: absolute;
+        right: 0;
+        color: cornflowerblue;;
+    }
+}
+
+#screened{
+    height: 50px;
+    border-bottom: solid lightgrey 1px ;
+    position: relative;
+    div{
+        position: absolute;
+        height: 30px;
+        top:50%;
+        margin-top: -15px;
+        text-align: center;
+        &:hover{
+            background-color: #6495ed;
+            color: white;
+            border:solid #6495ed;
+        }
+        p{
+            line-height: 30px;
+            color: #6495ed;
+            &:hover{
+                color: white;
+            }
+        }
+    }
+}
+
+.deleteBtnRight{
+    color:white ;
+    margin-left: 10px;
+    &:hover{
+        color:red;
+    }
+}
+@import "myCssOld.scss"

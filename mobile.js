@@ -22,7 +22,8 @@ var allBtn = document.getElementById("chooseLeft"),
 
 //width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no
     metaEle.content = "initial-scale="+scale+",minmuim-scale="+scale+",maxmuim-scale="+scale+",user-scalable=no"
-    ; docEle.firstElementChild.appendChild(metaEle);
+    ;
+     docEle.firstElementChild.appendChild(metaEle);
 //  console.log  dom�����
     console.log(docEle.getBoundingClientRect());
     var rem = docEle.getBoundingClientRect().width/ 16  //    chrome <10px,ǿ��12px

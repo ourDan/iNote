@@ -164,17 +164,3 @@ function uniqArray(arr) {
 
 
 
- (function fxxk(){
-    var targetClick = document.getElementById("query_ticket");
-    targetClick.click();
-   
-   var numTarget =document.getElementById("YW_240000Z27705");
-       var num = numTarget.innerHTML;
-       var numberN = parseInt(num);
-       if(numberN  !== NaN){
-        alert("cnm come on");
-       }
-       else{
-        setTimeout(fxxk,1000)
-       }
- })()

@@ -23,6 +23,8 @@ define(["baseMo"],function(baseMo){
 	MakeContent.prototype.createContent = function (){
 	    //  调用 复制使用的模板结构  是不是可以不用这么麻烦 ，毕竟  我们可以读取数据，然后直接把显示的那个的数据给显示出来  element。innerHtml = xxValue ，这样可以减少操作
 	    //  先创建根据填写内容 创建要用的text节点
+
+
 	    var nameValueNode = document.createTextNode(this.nameV),
 	        dateValueNode = document.createTextNode(this.dateV ),
 	        contentValueNode = document.createTextNode(this.contentV );
@@ -51,10 +53,12 @@ define(["baseMo"],function(baseMo){
 	    // then think about Center,so
 	    var newLi = document.createElement("li"),
 	        newnameValueNode =  nameValueNode.cloneNode(true) ;
-	        newnameValueNode = newnameValueNode + "<span classs='deleteBtnRight'>delete</span>";
+	        newnameValueString = this.nameV + "<span classs='deleteBtnRight'>delete</span>";
+	        console.log(newnameValueString);
+	    var newLiContent = document.createTextNode(newnameValueString);
+	    newLi.innerHTML = newnameValueString
 
-
-	   newLi.appendChild( newnameValueNode);
+	   //newLi.appendChild( newnameValueNode);
 	   	//newLi.innerHTML =  newnameValueNode +"<span classs='deleteBtnRight'>delete</span>"
 	   	console.log(newnameValueNode +"<span classs='deleteBtnRight'>delete</span>")
 	    newLi.setAttribute("title",this.nameV);
@@ -112,7 +116,7 @@ define(["baseMo"],function(baseMo){
 	        taskDateV = "<span>"+"任务时间"+"</span>"+ this.dateV,
 	        taskContentV = "<span>"+"任务内容"+"</span>"+this.contentV;
 
-	    console.log( taskName)
+	    console.log(taskName)
 	    taskName.innerHTML =  taskNameV;
 	    taskDate.innerHTML = taskDateV;
 	    taskContent.innerHTML = taskContentV;

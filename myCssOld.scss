@@ -75,8 +75,8 @@ header p span{
     height: 100%;
 }
 #contentList{
-    margin: -10px 0 0 500px;
-    background-color: white;
+    margin: 0px 0 0 500px;
+    
     height: 100%;
     position: relative;
 }
@@ -475,6 +475,7 @@ header p span{
 }
 #editTask{
     display: none;
+    
 }
 #createTask{
    display: none;

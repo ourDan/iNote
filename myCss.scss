@@ -155,4 +155,53 @@ header{
         color:red;
     }
 }
+
+#editTask{
+    
+    .name{
+        position: relative;
+        height: 40px;  
+        border-bottom:red solid red;
+        span{
+            line-height: 40px;
+        }
+        #editName{
+            height: 25px;
+            width: 400px;
+            margin:auto 0;
+        }
+
+    }
+    .date{
+        height: 80px;
+        position: relative;
+        span{
+            line-height: 80px;
+        }
+        #editDate{
+            height: 50px;
+            width: 400px;
+            position: absolute;
+            top:50%;
+            margin-top: -25px;
+        }
+    }
+
+    .task{
+        height: 80px;
+        position: relative;
+        span{
+            line-height: 80px;
+        }
+        #editNnn{
+            height: 50px;
+            width: 400px;
+            margin: auto 0;
+            position: absolute;
+            top:50%;
+            margin-top: -25px;
+        } 
+    }
+}
+
 @import "myCssOld.scss"

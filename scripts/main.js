@@ -45,7 +45,7 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	    var needShowContent = getElementsByClass(baseMo.Center_taskList,"showEd")[0];   // 对于 当前 ，反正，center的 都是 showed，只要找到就敲定了
 	    LeftClassLi_id = needShowContent.getAttribute("title");  //  this is in center  ,the div;'s title == the li's id(in left)
 	    // 调用 构造函数 创
-	    var  newObject  =  new  objData.MakeContent(nameValue ,dateValue,contentValue,LeftClassLi_id,LeftClassLiDiv_id,"not");
+	    var  newObject = new objData.MakeContent(nameValue ,dateValue,contentValue,LeftClassLi_id,LeftClassLiDiv_id,"not");
 	    newObject.createContent();  //  调用 方法 创建 一个content
 	    newObject.addToLocalStorage();  // 调用方法  把相关的数据 可以放进localStorage去了
 	    //console.log( newObject.addToLocalStorage)
@@ -209,4 +209,125 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 			}
 		}
 	}
+
+	addEvent( baseMo.Center_taskList,"click",deleteAContent);
+	function deleteAContent(){
+		var e = window.event || arguments[0];
+		var eTarget = e.target || e.srcElement;
+
+		if(eTarget.getAttribute("class") == "deleteBtnCenter"){
+			var deleteName = eTarget.parentNode.getAttribute("id").toLowerCase();
+			var deleteObj = findObj(deleteName);
+			deleteObj.deletefunc();
+		}
+	}
+
+	(function addLocalStorageToDom(){
+		//
+
+		// 对于 content  就是，只用重新创建object，到时候读obj的数据直接添加即可
+		var ls = localStorage;
+		for (var key in ls){
+		    var newObjJSON =localStorage.getItem(key),
+		        newObj = JSON.parse(newObjJSON);
+
+		    var finallyObj = new objData.MakeContent(newObj.nameV,newObj.dateV,newObj.contentV ,newObj.LeftClassLi_id,newObj.LeftClassLiDiv_id,newObj.complete);
+		    console.log(typeof finallyObj );
+		    objData.contentList[finallyObj.nameV] = finallyObj;
+		}
+
+		//  shit contentList is object ,i forget it ,and i really forget it
+		for (var key in objData.contentList){
+		   // console.log(contentList[key])
+		    var objCenterTaskDiv_title = objData.contentList[key].LeftClassLi_id,
+		        objCenterli_title = objData.contentList[key].CenterTaskLi_title,
+		        objLeftClassLiDiv_id = objData.contentList[key].LeftClassLiDiv_id,
+		        objLeftClassLi_id = objData.contentList[key].LeftClassLi_id,
+		        objComplete = objData.contentList[key].complete;
+
+		    //console.log(contentList[key].nameV + " " + objLeftClassLi_id+" "+objComplete )
+		    var LeftClassLi = null,
+		        LeftClassLiDiv = null,
+		        CenterTaskDiv = null,
+		        Centerli = null; //  oh 这里要每次清零，草 ，找了半天的bug，这里面还是在一个作用域，并没有执行以下就回收
+
+
+		    var centerTaskDivList = baseMo.Center_taskList.getElementsByTagName("div") ;
+		    // Left
+		    // leftDiv,
+		    if (document.getElementById(objLeftClassLiDiv_id)){
+		        LeftClassLiDiv = document.getElementById(objLeftClassLiDiv_id);
+		    }
+		    else {  // 那就是没有，得自己创建
+		        LeftClassLiDiv = baseMo.Left_classModel.cloneNode(true);
+		        //console.log(baseMo.Left_classModel)
+		      	//console.log(LeftClassLiDiv );
+		        baseMo.Left_classList.appendChild(LeftClassLiDiv);
+
+		        LeftClassLiDiv.setAttribute("title","0");
+		        LeftClassLiDiv.setAttribute("id",objLeftClassLiDiv_id);
+
+		        var newLeft_DivSpanNameValue = document.createTextNode(objLeftClassLiDiv_id); // 为了底下能够显示 id的名称，还得再这么搞一个
+		        LeftClassLiDiv.getElementsByClassName("className")[0].appendChild(newLeft_DivSpanNameValue);
+		    }
+		        console.log(LeftClassLiDiv)
+		    // leftLi
+		    if (document.getElementById(objLeftClassLi_id)){
+		        LeftClassLi = document.getElementById(objLeftClassLi_id);
+		    }
+		    else {
+		        LeftClassLi  = LeftClassLiDiv.getElementsByClassName("LiModel")[0].cloneNode(true);
+		        LeftClassLi.setAttribute("id",objLeftClassLi_id);
+		        LeftClassLi.setAttribute("class","");
+		        var newLeft_LiNameValue = document.createTextNode(objLeftClassLi_id);
+		        LeftClassLi.insertBefore(newLeft_LiNameValue,LeftClassLi.firstChild);
+		        LeftClassLiDiv.getElementsByClassName("taskList")[0].appendChild(  LeftClassLi)
+
+		    }
+		    console.log(  LeftClassLi )
+
+		    // center
+		    for (var t= 0,leng=centerTaskDivList.length;t<leng;t++){
+		        if (centerTaskDivList[t].getAttribute("title") == objCenterTaskDiv_title){
+		            CenterTaskDiv = centerTaskDivList[t];
+		        }
+		    }
+		    if (! CenterTaskDiv  ) {
+		        CenterTaskDiv =  baseMo.Center_taskListModel.cloneNode(true);
+		        CenterTaskDiv.setAttribute("title", objCenterTaskDiv_title );
+		        CenterTaskDiv.setAttribute("class","notShowEd");
+
+		        var spanValueNode = document.createTextNode(objCenterTaskDiv_title);   //  给 span 传个 text，显示
+
+		        CenterTaskDiv.getElementsByTagName("span")[0].appendChild(spanValueNode);
+		        baseMo.Center_taskList.appendChild(CenterTaskDiv);
+		    }
+
+		    var CenterliList = CenterTaskDiv.getElementsByTagName("li");
+
+		    for (var r = 0,lengt = CenterliList.length;r<lengt;r++){
+
+		        if (CenterliList[r].getAttribute("title") ===  objCenterli_title ){
+		            Centerli = CenterliList[r];
+		        }
+		    }
+
+		    if (!Centerli){
+
+		        Centerli = document.createElement("li");
+		        Centerli.innerHTML = objData.contentList[key].nameV + "<span class='deleteBtnRight'>"+"删除"+"</span>";
+		        //var newLi_textContent =document.createTextNode(contentList[key].nameV);
+
+
+		        Centerli.setAttribute("class","notChoosed");
+		        Centerli.setAttribute("title",objData.contentList[key].nameV);
+		        Centerli.setAttribute("name", objComplete);
+
+		        CenterTaskDiv.getElementsByClassName("fxxkFather")[0].appendChild(Centerli);  // 把 刚才创建的newLi 添加进
+		    }
+		    console.log(  Centerli)
+
+		}
+
+	})()
 })

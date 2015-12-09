@@ -5,54 +5,94 @@
     <title></title>
     <link href="myCss.css" type="text/css" rel="stylesheet">
     <meta name="viewport" content="">
-<script ><!-- 这次采用 这次是用我自己的mobile.js来做适配 -->
- (function(){
-     // 先来搞定 我们的web在什么 平台上 跑着
-     var UA = navigator.userAgent;
+    <script type="text/javascript" src="scripts/util.js"></script>
      
-     var isiPad = UA.match(/(ipad)/i);  
-     var isiPhone = UA.match(/(iphone\sos)\s(\d\_\d+)/i); // ["iPhone OS 8_0", "iPhone OS", "8_0"]
-     var isAndroid = UA.match(/(android)\s(\d+\.\d)/i);  //如果是的话 ["Andriod"，"Andriod","4.2/*就是版本号啦*/"]
-     // android = ua.match(/(Android);?[\s\/]+([\d.]+)?/)
-     var iswindowPhone = UA.match(/(windows\s\phone)\s(\d\.\d)/i); //["Windows Phone 8.0", "Windows Phone", "8.0"]
-     var isMobile = UA.match(/mobile/i)
+<script>
+     (function(){
+         // 先来搞定 我们的web在什么 平台上 跑着
+         var UA = navigator.userAgent;
+         
+         var isiPad = UA.match(/(ipad)/i);  
+         var isiPhone = UA.match(/(iphone\sos)\s(\d\_\d+)/i); // ["iPhone OS 8_0", "iPhone OS", "8_0"]
+         var isAndroid = UA.match(/(android)\s(\d+\.\d)/i);  //如果是的话 ["Andriod"，"Andriod","4.2/*就是版本号啦*/"]
+         // android = ua.match(/(Android);?[\s\/]+([\d.]+)?/)
+         var iswindowPhone = UA.match(/(windows\s\phone)\s(\d\.\d)/i); //["Windows Phone 8.0", "Windows Phone", "8.0"]
+         var isMobile = UA.match(/mobile/i)
 
-     // isMobile  ipad上面也是isMobile，所以说，这个就实在是糟糕 isMobile || !isiPad  == (isMobile.length != 0 && isiPad == null) 
-     // 这里先挖个坑 对于 不同的正则的写法 ，感觉在正则上面的技巧手法太弱爆
-     if (isMobile.length != 0 && isiPad == null){ // 那就进入了适配  首先得匹配 mobile 其次 还不能 匹配出ipad
-         reFreshFunc();
-         // 飞分为两种适配方法 
-         // 直接拉伸方法 ，假设采用
-     }
-     function reFreshFunc(){  // 利用rem来刷新的
-         var dpr = window.devicePixelRatio;
-         //console.log(dpr)
-        // 这段是 确定了 viewport 的 meta标签 
-         var metaList = document.getElementsByTagName("meta"),
-             meta;
-         console.log(metaList);    
-         for(var i=0,len=metaList.length;i<len;i++){
-             if (metaList[i].getAttribute("name").toLowerCase() == "viewport"){
-                 meta =metaList[i]; 
+         // isMobile  ipad上面也是isMobile，所以说，这个就实在是糟糕 isMobile || !isiPad  == (isMobile.length != 0 && isiPad == null) 
+         // 这里先挖个坑 对于 不同的正则的写法 ，感觉在正则上面的技巧手法太弱爆
+         if (isMobile.length != 0 && isiPad == null){ // 那就进入了适配  首先得匹配 mobile 其次 还不能 匹配出ipad
+           
+             reFreshFunc();
+             // 飞分为两种适配方法 
+             // 直接拉伸方法 ，假设采用
+             var needChangeCss = document.getElementsByTagName("link")[0];
+            // console.log(needChangeCss);
+             needChangeCss.setAttribute("href", "ff.css");
+             //console.log(needChangeCss);
+
+
+             window.onload = function(){
+               
+                var newJs = document.createElement("script");
+                            newJs.setAttribute("src", "scripts/require.js");
+                            newJs.setAttribute("data-main","scripts/mainMobile.js")
+                            console.log(newJs);
+                            console.log(document.html)
+                            document.getElementsByTagName("body")[0].appendChild(newJs)
              }
-             else{
-                 meta = document.createElement("meta");
-                 meta.setAttribute("name","viewport");
-             }
+            
+
+         }else{
+            window.onload = function(){
+                var newJs = document.createElement("script");
+                            newJs.setAttribute("src", "scripts/require.js");
+                            newJs.setAttribute("data-main","scripts/mainPc.js")
+
+                            //console.log(newJs);
+                            //console.log(document.html)
+                            document.getElementsByTagName("body")[0].appendChild(newJs)
+
+            }
+            // 那就是加载这个 <script data-main="scripts/mainPc.js" src="scripts/require.js">
+           
          }
-         // 
-         var contentValue = "initial-scale="+1/dpr+",maximum-scale="+1/dpr+",user-scalable=no"
-         meta.setAttribute("content",contentValue);
-         // reset font-size;
-         var baseWidth = window.screen.width;
-         var newRem = ((baseWidth*dpr)/ 320)*16;
-         document.getElementsByTagName("html")[0].style.fontSize = newRem +"px";
 
-         // 以上 能跑 绝大多数的 主流 平台 如iphone，三星，HTC  
-         // 对于 那些 比较 诡异 的 ，以及 某些 特殊情况的处理还不够 
+         function reFreshFunc(){  // 利用rem来刷新的
+             var dpr = window.devicePixelRatio;
+             //console.log(dpr)
+            // 这段是 确定了 viewport 的 meta标签 
+             var metaList = document.getElementsByTagName("meta"),
+                 meta;
+             //console.log(metaList.length);  
+             //console.log(metaList[1])  
+             for(var i=0,len=metaList.length;i<len;i++){
+                //console.log(metaList[i])
+                //console.log(metaList[i].getAttribute("name"))
+                //console.log(metaList[i].getAttribute("name").toLowerCase())
+                 if ( !metaList[i] && metaList[i].getAttribute("name").toLowerCase() == "viewport"){
+                     meta =metaList[i]; 
+                 }
+                 else{
+                     meta = document.createElement("meta");
+                     meta.setAttribute("name","viewport");
+                     document.getElementsByTagName("head")[0].appendChild(meta);
+                 }
+             }
+             // 
+             var contentValue = "initial-scale="+1/dpr+",maximum-scale="+1/dpr+",user-scalable=no"
+             meta.setAttribute("content",contentValue);
+             // reset font-size;
+             console.log(meta)
+             var baseWidth = window.screen.width;
+             var newRem = ((baseWidth*dpr)/ 320)*16;
+             document.getElementsByTagName("html")[0].style.fontSize = newRem +"px";
 
-     }  
-})()
+             // 以上 能跑 绝大多数的 主流 平台 如iphone，三星，HTC  
+             // 对于 那些 比较 诡异 的 ，以及 某些 特殊情况的处理还不够 
+
+         }  
+    })()
 </script>
 
 </head>
@@ -206,12 +246,6 @@
         <p> click to save</p>
     </div>
 </div>
-<script type="text/javascript" src="scripts/util.js"></script>
- <script data-main="scripts/main.js" src="scripts/require.js"></script>
-
-<script>
-   
-</script>
 
 </body>
 </html>

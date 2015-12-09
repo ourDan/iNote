@@ -1,13 +1,13 @@
 // 基础功能 和基础 数据 的书写 
-define([],function(){
+define(["baseMo","objData"],function(baseMo,objData){
 
 	//  根据 那个，将要寻找的对象的名称，从 contentList里面找到
 	function findObj(objName){
 	    //console.log(objName)
 	    var obj;
-	    for (var key in contentList){  // 这里应该不会重名吧，和一些基本的变量，我的
-	        //console.log( contentList[key].nameV)
-	        if ( contentList[key].nameV == objName ){
+	    for (var key in objData.contentList){  // 这里应该不会重名吧，和一些基本的变量，我的
+	        console.log( objData.contentList[key].nameV)
+	        if ( objData.contentList[key].nameV == objName ){
 	            obj = contentList[key];
 	        }
 	    }
@@ -19,7 +19,7 @@ define([],function(){
 
 	    console.log(divTitle)
 
-	    var TaskDivList = Center_taskList.getElementsByTagName("div"),
+	    var TaskDivList = $("#taskListFather").getElementsByTagName("div"),
 	        needShowTask;
 
 	    // console.log("needShowList" +needShowTaskList[0].getAttribute("title")+needShowTaskList[1].getAttribute("title"));
@@ -77,6 +77,8 @@ define([],function(){
 	    completeBtn:$("#chooseRight"),
 
 	    findObj:findObj,
+	    findCenterTaskDiv:findCenterTaskDiv,
+	    findCenterTaskLi:findCenterTaskLi
 
 	}
 

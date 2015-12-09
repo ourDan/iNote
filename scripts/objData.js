@@ -76,10 +76,8 @@ define(["baseMo"],function(baseMo){
 	    needAddFather.appendChild(newLi);
 	    newLi.setAttribute("class","choosed");
 	    newLi.setAttribute("name",this.complete);
-
 	};
-
-
+ 
 	MakeContent.prototype.addToLocalStorage = function (){
 	    console.log("addtolocal");
 
@@ -116,7 +114,7 @@ define(["baseMo"],function(baseMo){
 	        taskDateV = "<span>"+"任务时间"+"</span>"+ this.dateV,
 	        taskContentV = "<span>"+"任务内容"+"</span>"+this.contentV;
 
-	    console.log(taskName)
+	    //console.log(taskName)
 	    taskName.innerHTML =  taskNameV;
 	    taskDate.innerHTML = taskDateV;
 	    taskContent.innerHTML = taskContentV;
@@ -163,8 +161,6 @@ define(["baseMo"],function(baseMo){
 	    // then in localstrage
 	    localStorage.removeItem(this.nameV);
 	}
-
-	
 
 	return { // 放出来的 各个接口 
 		contentList : contentList,

@@ -1,4 +1,4 @@
-// 主要覆辙页面跳转 视图变化 
+// 主要覆辙pc端的基础页面跳转 视图变化 
 define(["baseMo","objData"],function(baseMo,objData){
 
 	// 筛选 功能用 的 ，对于 不同的 端，有click绑定，也有 touchStart？ 还是用
@@ -184,26 +184,33 @@ define(["baseMo","objData"],function(baseMo,objData){
 	    // 判断 在 center 点击的 是 li  还是 p  ，要是 点击了p  就啥事也没有最好 ，
 	    if (eTarget.nodeName.toLowerCase() == "li"){     // 判断 在 center 点击的 是 li
 	        //  这个怎么说呢，先根据 eTarget  得到 li_title,然后，在再 调用方法，showContent，
+	        var needCLi = getElementsByClass(baseMo.Center_taskList ,"choosed")[0];
+	        console.log(needCLi)
+	        needCLi.setAttribute("class","notChoosed");
+	        
+
 	        var needChoosedGrandfather =   baseMo.Center_taskList.getElementsByClassName("showEd")[0];
-	        var needChoosedFather = getElementsByClass(needChoosedGrandfather,"fxxkFather")[0];
-	        var needHiddenLi = getElementsByClass(needChoosedFather,"choosed")[0];
-	        if (needHiddenLi){
-	            needHiddenLi.setAttribute("class","notChoosed");
-	        }
+	        //console.log(needChoosedGrandfather);
+
+	        //var needChoosedFather = getElementsByClass(needChoosedGrandfather,"fxxkFather")[0];
+	        //var needHiddenLi = getElementsByClass(needChoosedFather,"choosed")[0];
+	        
+	        
+
 	        eTarget.setAttribute("class","choosed");
 	        var needShowContentObjectId = eTarget.getAttribute("title"),
 	            newObj;
 	        //console.log( needShowContentObjectId)
 	        // can not use like it
 	        for (var k in objData.contentList){
-	            console.log(objData.contentList[k].Centerli_title);
-	            console.log(objData.contentList[k])
+	           	//console.log(objData.contentList[k].Centerli_title);
+	           	//console.log(objData.contentList[k])
 	            if (objData.contentList[k].Centerli_title === needShowContentObjectId){
 	                newObj = objData.contentList[k];
-	                console.log(objData.contentList[k])
+	                //console.log(objData.contentList[k])
 	            }
 	        }
-	        console.log(newObj );
+	        //console.log(newObj );
 	        newObj.showContent();
 	    }
 	    //else { console.log("nothing happened)  }

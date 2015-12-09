@@ -1,17 +1,23 @@
 // 基础功能 和基础 数据 的书写 
-define(["baseMo","objData"],function(baseMo,objData){
+define(["objData"],function(objData){
 
 	//  根据 那个，将要寻找的对象的名称，从 contentList里面找到
 	function findObj(objName){
 	    //console.log(objName)
 	    var obj;
+	    console.log(objName);
+	    console.log(objData.contentList)
+
 	    for (var key in objData.contentList){  // 这里应该不会重名吧，和一些基本的变量，我的
 	        console.log( objData.contentList[key].nameV)
 	        if ( objData.contentList[key].nameV == objName ){
-	            obj = contentList[key];
+	        	alert("it")
+	            obj = objData.contentList[key];
 	        }
 	    }
+	    console.log(obj)
 	    return obj;
+
 	}
 
 	// 根据，title的值，找到对应的 CenterTaskDiv
@@ -24,7 +30,7 @@ define(["baseMo","objData"],function(baseMo,objData){
 
 	    // console.log("needShowList" +needShowTaskList[0].getAttribute("title")+needShowTaskList[1].getAttribute("title"));
 	    for (var t= 0,len= TaskDivList.length;t<len;t++){
-	        console.log(TaskDivList[t].getAttribute("title"))
+	        //console.log(TaskDivList[t].getAttribute("title"))
 	        if (TaskDivList[t].getAttribute("title") == divTitle ){
 	            needShowTask =  TaskDivList[t];
 	        }

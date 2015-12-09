@@ -155,7 +155,7 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 
 	        if (  recodeSome.moveX - recodeSome.startX  > 150 ){  // 往右滑动 是 返回上一层次页面
 
-	            showNoShow(baseMo.Right_content,Center_task)
+	            showNoShow(baseMo.Right_content,baseMo.Center_task)
 	        }
 
 	    });
@@ -165,6 +165,7 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	// 应用在 那个 那个 center  切换 别的页面 可进，可退，还得滑动删除 相关的操作里面了
 	(function (){  // 一个测试版，所有的触发，其实都在”touchend",这样的话可能会好一些
 	    var maybeSome={};  // 里面是一些记录用的东西
+
 	    // 毕竟是应该放在点击 center 的某一个 li 之后，content会有相应的变化
 	    addEvent(baseMo.Center_task,"touchstart",function(event){
 	        var e = window.event || arguments[0],
@@ -181,8 +182,7 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	        var e = window.event || arguments[0],
 	            eTarget = e.target || e.srcElement;
 
-	        console.log(eTarget.nodeName.toLowerCase())
-
+	        //console.log(eTarget.nodeName.toLowerCase())
 	        var touchE = event.touches[0];
 	        if (eTarget.nodeName.toLowerCase() == "li"){ // 就是说，一直在 li 滑动
 	            maybeSome.moveX = touchE.pageX; // 记录现在的手指在哪里
@@ -190,10 +190,12 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	            if(maybeSome.StartX - maybeSome.moveX  > 100){ //  就是说，往回划拉了100px
 	                alert(maybeSome.StartX - maybeSome.moveX);
 	                alert("i should delete this li");
-	                maybeSome.konw = "deleteLi";
+	                maybeSome.konw = "deleteLi"; // 这个写法我现在咋看看不懂，这个是调用的手法？
+	                //console.log( maybeSome.konw);
+
 	            }
 	            else if (maybeSome.moveX - maybeSome.StartX  > 100 ){  //就是说 ，虽然触发在li上面，但是，滑动方向是用来返回的
-	                maybeSome.konw = "backToLast"
+	                maybeSome.konw = "backToLast";
 	            }
 	        }
 	        else if (eTarget.getAttribute("id") == "taskListFather" || eTarget.nodeName.toLowerCase() == "div" ){
@@ -210,13 +212,13 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	            eTarget = e.target || e.srcElement;
 
 	        if ( maybeSome.konw == "deleteLi"){  // 执行 删除
-	            alert(" maybeSome.konw = 'deleteLi'");
+	            alert("maybeSome.konw = 'deleteLi' ");
 	            var needDeleteObj = baseMo.getObj(eTarget.getAttribute("title"));
 	            needDeleteObj.deletefunc();
 	        }
 	        else if ( maybeSome.konw == "backToLast"){
 	            alert(" maybeSome.konw = 'backToLeft'");
-	            showNoShow(baseMo.Center_task,Left_class);
+	            showNoShow(baseMo.Center_task,baseMo.Left_class);
 	        }
 	        else {
 	            //alert("next"); 就是普通的点击l
@@ -224,7 +226,6 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	            eTarget.setAttribute("class","choosed")
 	            showNoShow(baseMo.Center_task,baseMo.Right_content)
 	            var needShowObj =baseMo.findObj(eTarget.getAttribute("title"));
-	            //console.log(needShowObj)
 	            needShowObj.showContent();
 	        }
 	    });
@@ -261,7 +262,7 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 
 	var addBTn = document.getElementById("neewAdd");
 	addEvent(addBTn,"touchend",function(Event){
-	    console.log(baseMo.Left_class.style.display =="none")
+	    //console.log(baseMo.Left_class.style.display =="none")
 	    Event.preventDefault();
 	        //  因为实在不太好操作，只能将dom在移动端和pc做了不同的调整，所以说，添加动作，需要做在哪里添加的 区分
 	        if ( baseMo.Left_class.style.display !== "none"){   //  那就是说，中间的那页并没有显示 ，就是在LeftList 上面 要 添加 分类喽，
@@ -271,16 +272,18 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	            // 这里和移动端就有很大的不同了
 	            // 就得先把  Right的页面显示了，而且显示的是 填写的页面
 	         //   touchToShowContent();
-	            ( function (){
+	            (function (){
 	               baseMo.Right_content.setAttribute("class","prepareShow");
 	               baseMo.Right_content.style.display = "block";
 	
 	               baseMo.Center_task.setAttribute("class","canvasHidden");
 	               baseMo.Right_content.setAttribute("class","needShow");
+
 	               setTimeout(function(){
-	                   baseMo.Center_task.style.display = "none"
+	               baseMo.Center_task.style.display = "none"
 	               },400);
-	           } )();
+
+	            })();
 	            // 显示 填写的
 	            baseMo.Right_FaultContent.style.display = "none"
 	            baseMo.Right_createTaskContent.style.display = "block";
@@ -320,6 +323,10 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	    baseMo.Right_FaultContent.display = "block";
 	    console.log(objData.contentList)
 	}
+
+
+	
+
 
 })
 

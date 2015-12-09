@@ -1,7 +1,9 @@
 // baseObjData.js 用来写那些和 obj数据相关的各种
 
 
-define(["baseMo"],function(baseMo){
+define(["require","baseMo"],function(require,baseMo){
+
+	//console.log(require)
 
 	var contentList = {}; // 就是用来存储 出具的一个{}
 
@@ -24,14 +26,15 @@ define(["baseMo"],function(baseMo){
 	    //  调用 复制使用的模板结构  是不是可以不用这么麻烦 ，毕竟  我们可以读取数据，然后直接把显示的那个的数据给显示出来  element。innerHtml = xxValue ，这样可以减少操作
 	    //  先创建根据填写内容 创建要用的text节点
 
-
 	    var nameValueNode = document.createTextNode(this.nameV),
 	        dateValueNode = document.createTextNode(this.dateV ),
 	        contentValueNode = document.createTextNode(this.contentV );
 
-	    var needChangeContentTaskName = baseMo.Right_FaultContent.getElementsByClassName("taskName")[0],
-	        needChangeContentTaskTime = baseMo.Right_FaultContent.getElementsByClassName("taskTime")[0],
-	        needChangeContentTaskContent = baseMo.Right_FaultContent.getElementsByClassName("taskContent")[0];
+	    //console.log(require("baseMo").Right_sureToEdit)   
+
+	    var needChangeContentTaskName = require("baseMo").Right_FaultContent.getElementsByClassName("taskName")[0],
+	        needChangeContentTaskTime = require("baseMo").Right_FaultContent.getElementsByClassName("taskTime")[0],
+	        needChangeContentTaskContent = require("baseMo").Right_FaultContent.getElementsByClassName("taskContent")[0];
 
 	    var shouldAddTaskName = "<span>"+"任务名称"+"</span>"+this.nameV,
 	        shouldAddTaskTime = "<span>"+"任务时间"+"</span>"+this.dateV,
@@ -44,9 +47,9 @@ define(["baseMo"],function(baseMo){
 	    needChangeContentTaskName.setAttribute("title",this.nameV);
 	    needChangeContentTaskTime.setAttribute("title",this.dateV);
 	    needChangeContentTaskContent.setAttribute("title",this.contentV);
-	    baseMo.Right_FaultContent.style.display = "block"
+	    require("baseMo").Right_FaultContent.style.display = "block"
 	    //  清空  ，清空 ，把 填写的那个web清空 ，
-	    baseMo.Right_createTaskContent.style.display= "none";
+	    require("baseMo").Right_createTaskContent.style.display= "none";
 	    $("#name").value = "";
 	    $("#date").value = "";
 	    $("#nnn").value = "";
@@ -64,14 +67,14 @@ define(["baseMo"],function(baseMo){
 	    newLi.setAttribute("title",this.nameV);
 	    newLi.setAttribute("name","not");
 
-	    var needHiddenLiFather =  baseMo.Center_taskList.getElementsByClassName("showEd")[0],
+	    var needHiddenLiFather =  require("baseMo").Center_taskList.getElementsByClassName("showEd")[0],
 	        needHiddenLi =  needHiddenLiFather.getElementsByClassName("choosed")[0];
 
 	    if(needHiddenLi){
 	        needHiddenLi.setAttribute("class","noChoosed");
 	    }
 
-	    var needAddGrandfather =   baseMo.Center_taskList.getElementsByClassName("showEd")[0];
+	    var needAddGrandfather =   require("baseMo").Center_taskList.getElementsByClassName("showEd")[0];
 	    var needAddFather = needAddGrandfather.getElementsByClassName("fxxkFather")[0];
 	    needAddFather.appendChild(newLi);
 	    newLi.setAttribute("class","choosed");
@@ -106,9 +109,9 @@ define(["baseMo"],function(baseMo){
 
 	MakeContent.prototype.showContent = function(){
 
-	    var taskName = baseMo.Right_FaultContent.getElementsByClassName("taskName")[0],
-	           taskDate = baseMo.Right_FaultContent.getElementsByClassName("taskTime")[0],
-	           taskContent = baseMo.Right_FaultContent.getElementsByClassName("taskContent")[0];
+	    var taskName = require("baseMo").Right_FaultContent.getElementsByClassName("taskName")[0],
+	           taskDate = require("baseMo").Right_FaultContent.getElementsByClassName("taskTime")[0],
+	           taskContent = require("baseMo").Right_FaultContent.getElementsByClassName("taskContent")[0];
 
 	    var taskNameV = "<span>"+"任务名称"+"</span>"+ this.nameV,
 	        taskDateV = "<span>"+"任务时间"+"</span>"+ this.dateV,
@@ -128,7 +131,7 @@ define(["baseMo"],function(baseMo){
 	    // 删除center的 li ，删完之后判断一下 div里面还有没有li，要是没有，连div也顺路删除了；再把contentList 的这个对象也给delete;
 	    // centerLi
 	    // find  centerLiDiv
-	    var needDeleteCenterLiDivList = baseMo.Center_taskList.getElementsByTagName("div"),
+	    var needDeleteCenterLiDivList = require("baseMo").Center_taskList.getElementsByTagName("div"),
 	        needDeleteCenterLiDiv;
 	    for (var i= 0,len=needDeleteCenterLiDivList.length;i<len;i++){
 	        if (needDeleteCenterLiDivList[i].getAttribute("title") == this.LeftClassLi_id){

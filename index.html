@@ -8,7 +8,7 @@
     <script type="text/javascript" src="scripts/util.js"></script>
      
 <script>
-     (function(){
+     function change(){
          // 先来搞定 我们的web在什么 平台上 跑着
          var UA = navigator.userAgent;
          
@@ -21,7 +21,20 @@
 
          // isMobile  ipad上面也是isMobile，所以说，这个就实在是糟糕 isMobile || !isiPad  == (isMobile.length != 0 && isiPad == null) 
          // 这里先挖个坑 对于 不同的正则的写法 ，感觉在正则上面的技巧手法太弱爆
-         if (isMobile.length != 0 && isiPad == null){ // 那就进入了适配  首先得匹配 mobile 其次 还不能 匹配出ipad
+        if( !isMobile ){
+            window.onload = function(){
+                var newJs = document.createElement("script");
+                            newJs.setAttribute("src", "scripts/require.js");
+                            newJs.setAttribute("data-main","scripts/mainPc.js")
+
+                            //console.log(newJs);
+                            //console.log(document.html)
+                            document.getElementsByTagName("body")[0].appendChild(newJs)
+
+            }
+            // 那就是加载这个 <script data-main="scripts/mainPc.js" src="scripts/require.js">
+           
+         }else if (isMobile.length != 0 && isiPad == null){ // 那就进入了适配  首先得匹配 mobile 其次 还不能 匹配出ipad
            
              reFreshFunc();
              // 飞分为两种适配方法 
@@ -37,25 +50,12 @@
                 var newJs = document.createElement("script");
                             newJs.setAttribute("src", "scripts/require.js");
                             newJs.setAttribute("data-main","scripts/mainMobile.js")
-                            console.log(newJs);
-                            console.log(document.html)
+                           // console.log(newJs);
+                            //console.log(document.html)
                             document.getElementsByTagName("body")[0].appendChild(newJs)
              }
             
 
-         }else{
-            window.onload = function(){
-                var newJs = document.createElement("script");
-                            newJs.setAttribute("src", "scripts/require.js");
-                            newJs.setAttribute("data-main","scripts/mainPc.js")
-
-                            //console.log(newJs);
-                            //console.log(document.html)
-                            document.getElementsByTagName("body")[0].appendChild(newJs)
-
-            }
-            // 那就是加载这个 <script data-main="scripts/mainPc.js" src="scripts/require.js">
-           
          }
 
          function reFreshFunc(){  // 利用rem来刷新的
@@ -83,7 +83,7 @@
              var contentValue = "initial-scale="+1/dpr+",maximum-scale="+1/dpr+",user-scalable=no"
              meta.setAttribute("content",contentValue);
              // reset font-size;
-             console.log(meta)
+            // console.log(meta)
              var baseWidth = window.screen.width;
              var newRem = ((baseWidth*dpr)/ 320)*16;
              document.getElementsByTagName("html")[0].style.fontSize = newRem +"px";
@@ -92,7 +92,13 @@
              // 对于 那些 比较 诡异 的 ，以及 某些 特殊情况的处理还不够 
 
          }  
-    })()
+    };
+    change();
+    window.onresize= function(){
+        alert("c");
+        change();
+        location.reload()
+    }
 </script>
 
 </head>

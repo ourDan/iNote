@@ -132,9 +132,37 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 	        }
 	        else if ( maybeSome.StartX - maybeSome.moveX  > 100  &&  eTarget.nodeName.toLowerCase() == "li"  ){  // 写 删除
 	            alert(" i should delete it !");
+	            console.log(eTarget)
+	            cView1.deleteAlist(eTarget);
 	        }
 	    });
 	})();
+
+	function deleteAlist(){
+		var e = window.event || arguments[0];
+		var eTarget = e.target || e.srcElement;
+
+		if(eTarget.getAttribute("class") == "deleteBtnLeft"){
+			var deleteLiId = eTarget.parentNode.getAttribute("id").toLowerCase();
+			alert(deleteLiId)
+			for( var key in objData.contentList ){
+				if ( (objData.contentList)[key].LeftClassLi_id == deleteLiId ){
+					(objData.contentList)[key].deletefunc();
+				}
+			}
+		}
+	}
+
+	function deleteAContent(){
+		var e = window.event || arguments[0];
+		var eTarget = e.target || e.srcElement;
+
+		if(eTarget.getAttribute("class") == "deleteBtnCenter"){
+			var deleteName = eTarget.parentNode.getAttribute("id").toLowerCase();
+			var deleteObj = findObj(deleteName);
+			deleteObj.deletefunc();
+		}
+	}
 
 	//  应用在 那个 Right的操作（其实就是一个 滑动返回）
 	(function (){

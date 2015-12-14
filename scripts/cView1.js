@@ -479,6 +479,48 @@ define(["baseMo","objData"],function(baseMo,objData){
 
 	}
 
+	function deleteAlist(xxk){
+
+		
+		//console.log(arguments[0]);
+		var e = window.event || arguments[0];
+		console.log(e.type)
+		var eTarget = e.target || e.srcElement;
+		console.log(eTarget)
+
+		if( eTarget.getAttribute("class") == "deleteBtnLeft" ){
+			var deleteLiId = eTarget.parentNode.getAttribute("id").toLowerCase();
+			alert(deleteLiId)
+			for( var key in objData.contentList ){
+				if ( (objData.contentList)[key].LeftClassLi_id == deleteLiId ){
+					(objData.contentList)[key].deletefunc();
+				}
+			}
+		}
+		 else if(e.type == "touchend"  && eTarget.nodeName.toLowerCase() == "li"){
+			//alert("a");
+			var deleteLiId = eTarget.getAttribute("id").toLowerCase();
+			alert(deleteLiId);
+			console.log(objData.contentList)
+			for( var key in objData.contentList ){
+				if ( (objData.contentList)[key].LeftClassLi_id == deleteLiId ){
+					(objData.contentList)[key].deletefunc();
+				}
+			}
+		}
+	}
+
+	function deleteAContent(){
+		var e = window.event || arguments[0];
+		var eTarget = e.target || e.srcElement;
+
+		if(eTarget.getAttribute("class") == "deleteBtnCenter"){
+			var deleteName = eTarget.parentNode.getAttribute("id").toLowerCase();
+			var deleteObj = findObj(deleteName);
+			deleteObj.deletefunc();
+		}
+	}
+
 	return {
 		changeCompleteTask:changeCompleteTask,
 		changeAllTask:changeAllTask,
@@ -490,6 +532,8 @@ define(["baseMo","objData"],function(baseMo,objData){
 		toCreateTask:toCreateTask,
 		editContent:editContent,
 		sureEdit:sureEdit,
-		addLocalStorageToDom:addLocalStorageToDom
+		addLocalStorageToDom:addLocalStorageToDom,
+		deleteAlist:deleteAlist,
+		deleteAContent:deleteAContent
 	}
 })

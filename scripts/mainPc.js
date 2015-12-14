@@ -41,35 +41,12 @@ define(["baseMo","cView1","objData"],function(baseMo,cView1,objData){
 
 
 	// 和删除有关
-	addEvent( baseMo.Left_classList,"click",deleteAlist)
+	addEvent( baseMo.Left_classList,"click",cView1.deleteAlist)
 
-	function deleteAlist(){
-		var e = window.event || arguments[0];
-		var eTarget = e.target || e.srcElement;
 
-		if(eTarget.getAttribute("class") == "deleteBtnLeft"){
+	addEvent( baseMo.Center_taskList,"click",cView1.deleteAContent);
 
-			var deleteLiId = eTarget.parentNode.getAttribute("id").toLowerCase();
-			alert(deleteLiId)
-			for( var key in objData.contentList ){
-				if ( (objData.contentList)[key].LeftClassLi_id == deleteLiId ){
-					(objData.contentList)[key].deletefunc();
-				}
-			}
-		}
-	}
-	addEvent( baseMo.Center_taskList,"click",deleteAContent);
 
-	function deleteAContent(){
-		var e = window.event || arguments[0];
-		var eTarget = e.target || e.srcElement;
-
-		if(eTarget.getAttribute("class") == "deleteBtnCenter"){
-			var deleteName = eTarget.parentNode.getAttribute("id").toLowerCase();
-			var deleteObj = findObj(deleteName);
-			deleteObj.deletefunc();
-		}
-	}
 
 
 	cView1.addLocalStorageToDom();
